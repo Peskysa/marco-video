@@ -1,5 +1,7 @@
 """Marco Vídeo desktop player: Qt Multimedia / FFmpeg. Copyright Marco Pescador."""
 import json
+import re
+import html
 from pathlib import Path
 import random
 import sys
@@ -54,6 +56,7 @@ class Player(QMainWindow):
         self.sources = []
         self.index = -1
         self.cues = []
+        self.internal_caption = ''
         self.a = self.b = None
         self.resume_pending = 0
         self.last_saved = -1
@@ -100,6 +103,7 @@ class Player(QMainWindow):
         self.video=VideoCanvas(); self.video.setMinimumSize(320,240); self.media.setVideoSink(self.video.videoSink())
         middle.addWidget(self.video,1)
         self.caption=QLabel(''); self.caption.setTextFormat(Qt.TextFormat.PlainText); self.caption.setAlignment(Qt.AlignmentFlag.AlignCenter); self.caption.setWordWrap(True); self.caption.setStyleSheet('background:#07090c;color:white;font-size:22px;padding:8px;'); self.caption.setVisible(False); middle.addWidget(self.caption)
+        self.video.videoSink().subtitleTextChanged.connect(self.internal_subtitle)
         self.now=QLabel('00:00'); self.total=QLabel('00:00')
         seekrow=QHBoxLayout(); seekrow.addWidget(self.now)
         self.seek=QSlider(Qt.Orientation.Horizontal); self.seek.setRange(0,0); self.seek.setAccessibleName('Position'); self.seek.sliderMoved.connect(self.media.setPosition); self.seek.sliderReleased.connect(lambda:self.media.setPosition(self.seek.value())); seekrow.addWidget(self.seek,1); seekrow.addWidget(self.total); middle.addLayout(seekrow)
@@ -183,7 +187,7 @@ class Player(QMainWindow):
         if not 0<=index<len(self.sources): return
         self.save_position(); source=self.sources[index]
         if not source.startswith(('http://','https://')) and not Path(source).is_file(): self.message(self.t('missing')+': '+source); return
-        self.index=index; self.list.setCurrentRow(index); self.cues=[]; self.caption.hide(); self.clear_loop(); self.last_saved=-1
+        self.index=index; self.list.setCurrentRow(index); self.cues=[]; self.internal_caption=''; self.caption.hide(); self.clear_loop(); self.last_saved=-1
         self.resume_pending=int(self.progress_data.get(source,0)) if self.settings.value('resume',True,type=bool) else 0
         self.title.setText(self.list.item(index).text()); self.setWindowTitle(self.title.text()+' — Marco Vídeo')
         self.media.setSource(QUrl(source) if source.startswith(('http://','https://')) else QUrl.fromLocalFile(source)); self.media.play()
@@ -209,7 +213,8 @@ class Player(QMainWindow):
         if not self.seek.isSliderDown(): self.seek.setValue(value)
         self.now.setText(clock(value))
         if self.a is not None and self.b is not None and value>=self.b: self.media.setPosition(self.a)
-        text=caption_at(self.cues,value,getattr(self,'subtitle_delay',0)); self.caption.setText(text); self.caption.setVisible(bool(text))
+        text=caption_at(self.cues,value,getattr(self,'subtitle_delay',0)) if self.cues else self.internal_caption
+        self.caption.setText(text); self.caption.setVisible(bool(text))
         bucket=value//5000
         if bucket!=self.last_saved and self.resume_pending==0: self.save_position(); self.last_saved=bucket
     def duration_changed(self,value): self.seek.setRange(0,min(value,2147483647)); self.total.setText(clock(value))
@@ -244,7 +249,11 @@ class Player(QMainWindow):
                 if not self.cues: raise ValueError(self.t('error'))
                 self.media.setActiveSubtitleTrack(-1); self.statusBar().showMessage(self.t('subLoaded')+': '+str(len(self.cues)),6000)
             except (OSError,ValueError) as e: self.message(str(e))
-    def hide_subtitles(self): self.cues=[]; self.caption.hide(); self.media.setActiveSubtitleTrack(-1)
+    def internal_subtitle(self,text):
+        self.internal_caption=html.unescape(re.sub(r'<[^>]*>','',text))
+        if not self.cues:
+            self.caption.setText(self.internal_caption); self.caption.setVisible(bool(self.internal_caption))
+    def hide_subtitles(self): self.cues=[]; self.internal_caption=''; self.caption.hide(); self.media.setActiveSubtitleTrack(-1)
     def tracks_changed(self): self.media.setActiveSubtitleTrack(-1)
     def choose_track(self,subtitles=False):
         tracks=self.media.subtitleTracks() if subtitles else self.media.audioTracks()

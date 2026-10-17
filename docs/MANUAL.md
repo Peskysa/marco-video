@@ -32,7 +32,7 @@ Usa el filtro para localizar un nombre. Las flechas de orden y el botón quitar 
 
 Abre un archivo **SRT o WebVTT** desde el botón dedicado. Se muestra texto plano: no se ejecuta HTML ni se conserva estilismo ASS/SSA. Admite UTF-8, UTF-16 con marca BOM y Windows-1252 como alternativa. Los subtítulos externos se restablecen al cambiar de vídeo.
 
-En el menú de escritorio o **Detalles → Subtítulos** de la web, ajusta tamaño y retraso. Un valor positivo retrasa el texto; uno negativo lo adelanta. **Ocultar subtítulos** desactiva los externos y las pistas internas.
+En el menú de escritorio o **Detalles → Subtítulos** de la web, ajusta tamaño y retraso. El retraso se aplica a los SRT/VTT externos: un valor positivo retrasa el texto y uno negativo lo adelanta. **Ocultar subtítulos** desactiva los externos y las pistas internas.
 
 Escritorio permite escoger las pistas internas que detecta Qt. La web muestra las que expone `video.textTracks`; muchos navegadores no exponen los subtítulos incrustados en un MKV. No se promete compatibilidad con todos los estilos/formas de subtítulo interno.
 

@@ -16,6 +16,7 @@ const {mkdir,readFile,writeFile}=require('node:fs/promises'),path=require('node:
     await page.evaluate(()=>{const v=document.getElementById('video');v.pause();v.currentTime=2;});
     await page.waitForFunction(()=>!document.getElementById('video').seeking);
     await page.setInputFiles('#subFile',path.join(root,'assets/demo.srt'));
+    await page.waitForFunction(()=>cues.length>0);
     await page.evaluate(()=>document.getElementById('video').dispatchEvent(new Event('timeupdate')));
     assert.match(await page.textContent('#caption'),/Una pausa/);
     await page.click('#setA');await page.evaluate(()=>{document.getElementById('video').currentTime=6;});await page.click('#setB');
