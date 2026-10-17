@@ -2,7 +2,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
 const {mkdir,readFile,writeFile}=require('node:fs/promises'),path=require('node:path');
 (async()=>{
   const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
-  const root=path.resolve(__dirname,'../..'),shots=path.join(root,'docs/images');await mkdir(shots,{recursive:true});
+  const root=path.resolve(__dirname,'../..'),shots=path.join(root,'docs/images');await mkdir(shots,{recursive:true});await mkdir(path.join(root,'test-output'),{recursive:true});
   try{
     const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});const errors=[],external=[];
     page.on('pageerror',e=>errors.push(e.message));

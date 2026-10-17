@@ -135,6 +135,7 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs app/build/outputs/apk/release/app-release.apk
           cp app/build/outputs/apk/release/app-release.apk ../../Marco-Video-Android.apk
       - uses: actions/upload-artifact@v4
         with:
