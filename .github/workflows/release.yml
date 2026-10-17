@@ -1,0 +1,170 @@
+name: Compilar Marco Vídeo
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '11.25.0'
+          run_install: false
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - run: pnpm test
+        working-directory: web
+      - run: python scripts/build.py
+      - name: Reproducción y controles sin peticiones externas
+        env:
+          BROWSER_CHANNEL: chromium
+        run: |
+          cd web && pnpm exec playwright install --with-deps chromium && cd ..
+          python -m http.server 5180 --bind 127.0.0.1 --directory dist/web &
+          for i in $(seq 1 20); do curl -s http://127.0.0.1:5180/ >/dev/null && break; sleep 1; done
+          node web/tests/browser.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-assets
+          path: dist/web/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: final-web
+          path: dist/Marco-Video-Web.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: browser-report
+          path: test-output/browser-report.json
+  desktop:
+    needs: web
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-assets
+          path: dist/web
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bibliotecas Linux
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb python3-tk libgl1 libegl1 libxkbcommon0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb1 libpulse0 libnss3 libasound2
+      - run: python -m pip install -r requirements.txt pyinstaller==6.22.3
+      - run: python -m unittest discover -s tests -v
+      - run: python packaging/build.py
+      - name: Windows ejecutables e instalador
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath (Resolve-Path 'dist/Marco-Video-Portable.exe') -ArgumentList '--self-test',(Join-Path $PWD 'test-output/frozen-report.json') -WindowStyle Hidden -Wait -PassThru
+          if ($p.ExitCode -ne 0) { Get-Content test-output/frozen-report.json; throw 'Falló la reproducción en el portable compilado' }
+          Get-Content test-output/frozen-report.json
+          python packaging/check_web.py dist/Marco-Video-Web-Portable.exe
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' packaging/windows.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Falló el instalador' }
+      - name: Linux reproducción real y paquetes
+        if: runner.os == 'Linux'
+        env:
+          QT_MEDIA_BACKEND: ffmpeg
+          QT_FFMPEG_DECODING_HW_DEVICE_TYPES: ''
+        run: |
+          xvfb-run -a 'dist/Marco Video/Marco Video' --self-test test-output/frozen-report.json
+          cat test-output/frozen-report.json
+          bash packaging/linux.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: final-${{ runner.os }}
+          path: |
+            dist/Marco-Video-Portable.exe
+            dist/Marco-Video-Web-Portable.exe
+            dist/Marco-Video-Windows-Instalador.exe
+            dist/Marco-Video-Linux-amd64.deb
+            dist/Marco-Video-Linux-Portable.tar.gz
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-report-${{ runner.os }}
+          path: test-output/frozen-report.json
+  android:
+    needs: web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-assets
+          path: dist/web
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '11.25.0'
+          run_install: false
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: APK de publicación con clave propia
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          cd web
+          pnpm exec cap sync android
+          echo "$ANDROID_KEYSTORE" | base64 --decode > android/app/marco-video.p12
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+          cp app/build/outputs/apk/release/app-release.apk ../../Marco-Video-Android.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: final-android
+          path: Marco-Video-Android.apk
+  publish:
+    needs: [web, desktop, android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: final-*
+          path: artifacts
+          merge-multiple: true
+      - name: Documentación, fuente correspondiente y sumas
+        run: |
+          python packaging/docs.py
+          cp dist/Marco-Video-Documentacion.zip artifacts/
+          git archive --format=zip --prefix=Marco-Video-Source/ --output=artifacts/Marco-Video-Source.zip HEAD
+          for file in Marco-Video-Portable.exe Marco-Video-Web-Portable.exe Marco-Video-Web.zip Marco-Video-Windows-Instalador.exe Marco-Video-Linux-amd64.deb Marco-Video-Android.apk; do test -s "artifacts/$file"; done
+          (cd artifacts && sha256sum *) > SHA256SUMS.txt
+          mv SHA256SUMS.txt artifacts/
+      - name: Publicar Marco Vídeo 1.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          if [ "${GITHUB_REF_TYPE}" != 'tag' ]; then tag='v1.0.0'; fi
+          gh release create "$tag" artifacts/* --target "$GITHUB_SHA" --title 'Marco Vídeo 1.0 · ES / EN / FR' --notes-file docs/releases/v1.0.0.md

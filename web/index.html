@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101419"><meta name="description" content="Marco Vídeo: reproductor privado de archivos locales, listas, subtítulos y controles de cine.">
+  <title>Marco Vídeo</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="#" aria-label="Marco Vídeo"><span class="monogram">M<span>▶</span></span><span>Marco <b>Vídeo</b></span></a>
+  <span class="local" data-t="local"></span>
+  <select id="language" aria-label="Idioma / Language / Langue"><option value="es">Español</option><option value="en">English</option><option value="fr">Français</option></select>
+  <button class="primary" id="open" data-t="open"></button>
+  <button id="menuToggle" aria-label="Opciones / Options" aria-expanded="false">☰</button>
+</header>
+<main id="workspace">
+  <aside id="sidebar">
+    <div class="sideTitle"><h2 data-t="playlist"></h2><span id="count" class="badge">0</span></div>
+    <input id="filter" type="search" data-placeholder="search" aria-label="Filtrar / Filter">
+    <div class="sideActions"><button id="folder" data-t="folder"></button><button id="url" data-t="url"></button></div>
+    <ol id="playlist" aria-label="Playlist"></ol>
+    <div class="listActions"><button id="moveUp" data-title="up">↑</button><button id="moveDown" data-title="down">↓</button><button id="remove" data-title="remove">−</button><button id="clear" data-t="clear"></button></div>
+    <p class="note" data-t="localNote"></p>
+    <div class="listActions"><button id="import" data-t="import"></button><button id="export" data-t="export"></button></div>
+    <p class="edition">MARCO VÍDEO <span>01 / 1.0</span></p>
+  </aside>
+  <section class="cinema">
+    <div class="nowPlaying"><div><span class="eyebrow">PRIVATE CINEMA</span><h1 id="title" data-t="empty"></h1></div><button id="focus" data-title="night">◧</button></div>
+    <div id="theater">
+      <div id="screen">
+        <video id="video" playsinline preload="metadata"></video>
+        <div id="empty"><div class="film"><i></i><i></i><i></i><span>▶</span><i></i><i></i><i></i></div><h2 data-t="empty"></h2><p data-t="hint"></p><button id="openEmpty" class="primary" data-t="open"></button></div>
+        <div id="caption" aria-live="off"></div>
+      </div>
+      <div class="deck">
+        <div class="timeline"><output id="position">00:00</output><input id="seek" type="range" min="0" max="0" step="0.05" value="0" aria-label="Posición / Position"><output id="duration">00:00</output></div>
+        <div class="transport">
+          <div class="transportMain"><button id="previous" data-title="previous">⏮</button><button id="back" title="−10 s">−10</button><button class="play" id="play" data-title="play">▶</button><button id="forward" title="+10 s">+10</button><button id="next" data-title="next">⏭</button><button id="stop" data-title="stop">■</button></div>
+          <div class="sound"><button id="mute" data-title="mute">♪</button><input id="volume" type="range" min="0" max="1" step="0.01" value="0.75" data-title="volume" aria-label="Volumen / Volume"></div>
+          <div class="viewControls"><select id="speed" data-title="speed" aria-label="Velocidad / Speed"><option>0.25</option><option>0.5</option><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option><option>1.75</option><option>2</option><option>2.5</option><option>3</option><option>4</option></select><button id="pip" data-title="pip">▣</button><button id="fullscreen" data-title="fullscreen">⛶</button></div>
+        </div>
+        <div class="secondary"><label><span data-t="repeat"></span><select id="repeat"><option value="0" data-t="off"></option><option value="1" data-t="one"></option><option value="2" data-t="all"></option></select></label><label class="check"><input id="shuffle" type="checkbox"><span data-t="shuffle"></span></label><div class="ab"><button id="setA" data-t="loopA"></button><button id="setB" data-t="loopB"></button><button id="clearAB" data-title="loopClear">×</button><output id="ab">A — B</output></div></div>
+      </div>
+    </div>
+    <div class="quick"><button id="subtitles" data-t="loadSub"></button><button id="snapshot" data-t="snapshot"></button><button id="bookmark" data-t="bookmark"></button><button id="details" data-t="details"></button></div>
+    <p id="status" role="status" data-t="ready"></p>
+    <p class="compat" data-t="webOnly"></p>
+  </section>
+  <section id="settings" hidden>
+    <div class="settingsTitle"><h2 data-t="details"></h2><button id="closeSettings" data-title="close">×</button></div>
+    <details open><summary data-t="aspect"></summary><div class="settingsGroup"><label><span data-t="aspect"></span><select id="fit"><option value="contain" data-t="fit"></option><option value="cover" data-t="fill"></option></select></label><button id="rotate" data-t="rotate"></button><label><span data-t="brightness"></span><input id="brightness" type="range" min="25" max="200" value="100"></label><label><span data-t="contrast"></span><input id="contrast" type="range" min="25" max="200" value="100"></label><label><span data-t="saturation"></span><input id="saturation" type="range" min="0" max="200" value="100"></label><button id="resetPicture" data-t="reset"></button></div></details>
+    <details><summary data-t="subtitles"></summary><div class="settingsGroup"><button id="hideSub" data-t="hideSub"></button><label><span data-t="subDelay"></span><input id="subDelay" type="number" min="-600000" max="600000" step="100" value="0"></label><label><span data-t="subtitleSize"></span><input id="subSize" type="range" min="14" max="48" value="24"></label><label><span data-t="embedded"></span><select id="textTrack"><option value="-1" data-t="off"></option></select></label></div></details>
+    <details><summary data-t="equalizer"></summary><div class="settingsGroup"><label class="check"><input id="eqEnable" type="checkbox"><span data-t="equalizer"></span></label><label><span data-t="bass"></span><input id="bass" type="range" min="-12" max="12" value="0"></label><label><span data-t="mid"></span><input id="mid" type="range" min="-12" max="12" value="0"></label><label><span data-t="treble"></span><input id="treble" type="range" min="-12" max="12" value="0"></label><p class="note" data-t="audioNote"></p></div></details>
+    <details><summary data-t="bookmarks"></summary><div id="bookmarks" class="settingsGroup"></div></details>
+    <details><summary data-t="sleep"></summary><div class="settingsGroup"><label><span data-t="minutes"></span><input id="sleepMinutes" type="number" min="0" max="1440" value="0"></label><button id="sleepSet" data-t="sleep"></button></div></details>
+    <details><summary data-t="info"></summary><pre id="mediaInfo"></pre></details>
+    <details><summary data-t="help"></summary><p class="note" data-t="shortcuts"></p><p class="note" data-t="speedPitch"></p><p class="note" data-t="network"></p><label class="check"><input id="remember" type="checkbox" checked><span data-t="resumeToggle"></span></label><p class="note" data-t="copyright"></p><p class="note">© 2026 Marco Pescador · <a href="LICENSE" download>GPL-3.0</a> · <a href="MANUAL.md" download>Manual</a></p></details>
+  </section>
+</main>
+<input id="files" type="file" accept="video/*,audio/*,.mkv,.avi,.mov,.flac,.m3u,.m3u8" multiple hidden>
+<input id="folderFiles" type="file" webkitdirectory multiple hidden>
+<input id="subFile" type="file" accept=".srt,.vtt" hidden><input id="playlistFile" type="file" accept=".m3u,.m3u8" hidden>
+<script src="translations.js"></script><script src="logic.js"></script><script src="native.js"></script><script src="app.js"></script>
+</body></html>
