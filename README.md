@@ -6,6 +6,8 @@
 
 Marco Vídeo es un proyecto independiente creado por **Marco Pescador** para reproducir archivos propios, organizar una sesión y controlar imagen, sonido y subtítulos. Sin cuentas, anuncios ni subida de tus vídeos. La interfaz está disponible en español, inglés y francés en todas las variantes.
 
+**[Abrir la versión web](https://marco-video.peskysa.chatgpt.site)** · Alojada con acceso privado para la cuenta del propietario. Para usarla sin Internet, descarga el ZIP web o uno de los portables.
+
 ![Reproducción real con subtítulos](docs/images/reproduccion.png)
 
 ## Descargas

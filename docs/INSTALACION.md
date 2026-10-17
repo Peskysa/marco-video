@@ -14,6 +14,8 @@ Windows 10/11 x64. No se requiere administrador para las tres variantes; una pol
 
 ## Web normal y web sin Internet
 
+La [web alojada](https://marco-video.peskysa.chatgpt.site) tiene acceso privado para la cuenta del propietario y necesita Internet para cargar la aplicación.
+
 Descomprime `Marco-Video-Web.zip` y abre **`index.html`** en un navegador actual. Conserva los demás archivos junto a él. Funciona por `file://` sin instalar un servidor; se ha probado con Microsoft Edge. Otras políticas/navegadores pueden limitar las descargas, pantalla completa o ventana flotante.
 
 En otro ordenador, copia la carpeta completa en un USB. No basta con guardar un enlace a una web de Internet: una dirección alojada requiere conexión para cargar la aplicación. No se promete caché automática ni instalación PWA.

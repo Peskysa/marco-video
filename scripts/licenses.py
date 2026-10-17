@@ -27,4 +27,7 @@ for name in ('@capacitor/core','@capacitor/android','@capacitor/filesystem','@ca
     for p in package.iterdir():
         if p.is_file() and p.name.lower().startswith(('license','notice')):shutil.copy2(p,target/p.name)
     shutil.copy2(package/'package.json',target/'package.json')
+package=(ROOT/'web/node_modules/@capacitor/filesystem').resolve().parents[1]/'@capacitor/synapse'
+target=folder/'capacitor-synapse';target.mkdir(exist_ok=True)
+for name in ['LICENSE.md','package.json']:shutil.copy2(package/name,target/name)
 print('Licencias y metadatos de Qt/PySide y Capacitor conservados.')
