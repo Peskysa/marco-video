@@ -21,4 +21,4 @@ Las compilaciones y pruebas se ejecutan en Windows y Linux; el APK se compila y 
 
 Antes de publicar se comprueban los nueve paquetes y se calculan sus sumas. No se considera completa una modalidad por existir solamente su carpeta de código. Los enlaces de portada corresponden a esta versión; versiones antiguas pueden tener otros nombres.
 
-Acceso: Repositorio privado; web pública. Web: https://marco-video.peskysa.chatgpt.site.
+Acceso: Repositorio y web públicos. Web: https://marco-video.peskysa.chatgpt.site.

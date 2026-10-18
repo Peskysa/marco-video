@@ -24,7 +24,7 @@ Reproduce vídeos y audios propios, organiza listas y controla subtítulos, imag
 
 Todas las variantes incluyen la aplicación y sus recursos. No necesitas instalar Python ni Node.js para utilizar los paquetes compilados. Los portables no requieren instalación, pero siguen sujetos a los permisos de ejecución del equipo. Los ejecutables Windows no tienen firma comercial. El APK se instala directamente, fuera de Google Play; su compilación no equivale a una prueba en teléfono físico.
 
-Acceso: **Repositorio privado; web pública**. La visibilidad del repositorio y la del alojamiento web son ajustes independientes. La publicación concreta y sus archivos se comprueban en [Releases](https://github.com/Peskysa/marco-video/releases/latest).
+Acceso: **Repositorio y web públicos**. La visibilidad del repositorio y la del alojamiento web son ajustes independientes. La publicación concreta y sus archivos se comprueban en [Releases](https://github.com/Peskysa/marco-video/releases/latest).
 
 Además: `Marco-Video-Web-Portable.exe`, `Marco-Video-Linux-Portable.tar.gz`, documentación, código fuente y `SHA256SUMS.txt`. [Formatos, requisitos y verificación](docs/DISTRIBUCION.md).
 

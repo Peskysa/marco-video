@@ -12,5 +12,6 @@
     "web",
     "android"
   ],
-  "package": "web/package.json"
+  "package": "web/package.json",
+  "visibility": "public"
 }

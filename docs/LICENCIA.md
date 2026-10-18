@@ -6,6 +6,6 @@ Puedes usar, estudiar, modificar y redistribuir el programa conforme a esa licen
 
 La versión 1.0.0 se publicó bajo GPL-3.0-only; su texto se conserva en `licenses/marco-video-v1.0-GPL.txt`. Qt/PySide y FFmpeg conservan sus opciones de código abierto y sus bibliotecas dinámicas sustituibles; consulta THIRD_PARTY.md y Desarrollo.
 
-Cada nueva publicación adjunta `Marco-Video-Source.zip` con el código del mismo commit que los binarios, además de instrucciones y versiones de dependencias. La fuente está también en [marco-video](https://github.com/Peskysa/marco-video). El acceso privado del repositorio no elimina las obligaciones de proporcionar fuentes a sus destinatarios. Las claves de firma y contraseñas no forman parte del código distribuible.
+Cada nueva publicación adjunta `Marco-Video-Source.zip` con el código del mismo commit que los binarios, además de instrucciones y versiones de dependencias. La fuente está también en [marco-video](https://github.com/Peskysa/marco-video). El repositorio, el código y las descargas son públicos; no se necesita una cuenta de GitHub para consultarlos. Las claves de firma y contraseñas no forman parte del código distribuible.
 
 La licencia del código original es común a la colección; no se cambia la licencia de bibliotecas ajenas ni se revocan permisos de ediciones anteriores.

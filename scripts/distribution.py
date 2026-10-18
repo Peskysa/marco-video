@@ -11,6 +11,7 @@ def check():
     required += ['docs/images/'+p+'.png' for p in ['escritorio','funcion','movil']]
     for p in required:
         if not (ROOT/p).is_file() or not (ROOT/p).stat().st_size: raise SystemExit('Falta: '+p)
+    if CONFIG.get('visibility') != 'public': raise SystemExit('La colección exige repositorios públicos')
     if CONFIG['license'] != 'AGPL-3.0-only': raise SystemExit('Licencia diferente')
     if CONFIG['modalities'] != ['linux','windows','portable','web','android']: raise SystemExit('Modalidades diferentes')
     if 'GNU AFFERO GENERAL PUBLIC LICENSE' not in (ROOT/'LICENSE').read_text(): raise SystemExit('Texto de licencia incorrecto')

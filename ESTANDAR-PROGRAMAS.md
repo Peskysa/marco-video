@@ -27,6 +27,8 @@ Los sistemas tienen funciones y requisitos distintos que deben explicarse. Porta
 
 ## Publicación
 
+**Todo en GitHub debe ser público**, incluidos los repositorios existentes y futuros y sus descargas. Es una instrucción permanente de Marco. Las credenciales y claves de firma se guardan como secretos, nunca en el código.
+
 La autorización permanente está en AGENTS.md. Autenticación mediante GitHub CLI ya iniciada como Peskysa y almacenada en el gestor de credenciales, con permisos repo y workflow. Los trabajos usan GITHUB_TOKEN con permisos de su repositorio, y secretos de firma Android independientes. Nunca copiar tokens a código o chat.
 
 Las etiquetas de versión activan compilación, pruebas, verificación de paquetes y publicación automática. Antes de finalizar, confirmar los nueve paquetes, hashes, commit, resultado de Actions y acceso al sitio. Mantener registro de limitaciones reales.
