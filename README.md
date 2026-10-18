@@ -1,71 +1,64 @@
-<p align="center"><img src="assets/banner.svg" width="100%" alt="Marco Vídeo · Tu sesión de cine, a tu manera"></p>
+<p align="center"><img src="assets/banner.svg" alt="Marco Vídeo · Colección Marco Pescador" width="100%"></p>
 
-<p align="center"><b>Reproductor de vídeo y audio local · Español · English · Français</b><br>Windows · Linux · Web · Android</p>
+<p align="center"><a href="LICENSE"><img alt="AGPL-3.0-only" src="https://img.shields.io/badge/licencia-AGPL--3.0-173e40?style=flat-square"></a> <a href="https://github.com/Peskysa/marco-video/actions/workflows/release.yml"><img alt="Compilación y pruebas" src="https://github.com/Peskysa/marco-video/actions/workflows/release.yml/badge.svg"></a> <a href="https://github.com/Peskysa/marco-video/releases/latest"><img alt="Última versión" src="https://img.shields.io/github/v/release/Peskysa/marco-video?style=flat-square"></a></p>
 
-<p align="center"><a href="https://github.com/Peskysa/marco-video/releases/latest">Descargar</a> · <a href="docs/MANUAL.md">Manual</a> · <a href="docs/INSTALACION.md">Instalación</a> · <a href="docs/CAPTURAS.md">Capturas reales</a> · <a href="LICENSE">GPL-3.0</a></p>
+<p align="center"><strong>Reproduce vídeos y audios propios, organiza listas y controla subtítulos, imagen y sonido.</strong><br>Linux · Windows · Portable · Web · Android</p>
 
-Marco Vídeo es un proyecto independiente creado por **Marco Pescador** para reproducir archivos propios, organizar una sesión y controlar imagen, sonido y subtítulos. Sin cuentas, anuncios ni subida de tus vídeos. La interfaz está disponible en español, inglés y francés en todas las variantes.
+<p align="center"><a href="https://marco-video.peskysa.chatgpt.site"><strong>Abrir aplicación web</strong></a> · <a href="https://github.com/Peskysa/marco-video/releases/latest">Descargas</a> · <a href="docs/README.md">Documentación</a> · <a href="https://github.com/Peskysa/marco-video/issues">Ayuda</a></p>
 
-**[Abrir la versión web](https://marco-video.peskysa.chatgpt.site)** · Alojada con acceso privado para la cuenta del propietario. Para usarla sin Internet, descarga el ZIP web o uno de los portables.
+## La aplicación
 
-![Reproducción real con subtítulos](docs/images/reproduccion.png)
+Reproduce vídeos y audios propios, organiza listas y controla subtítulos, imagen y sonido. Creada por **Marco Pescador**. Listas, subtítulos SRT/WebVTT, velocidad, marcadores, reanudación, capturas y controles de reproducción. Interfaz en español, inglés y francés.
 
-## Descargas
+![Aplicación real en escritorio](docs/images/escritorio.png)
 
-Los archivos compilados están en [Releases](https://github.com/Peskysa/marco-video/releases/latest). El código fuente no sustituye a los ejecutables.
+## Cinco modalidades
 
-| Variante | Archivo | Instalación / Internet |
+| Modalidad | Descarga | Uso |
 | --- | --- | --- |
-| Portable Windows x64 | `Marco-Video-Portable.exe` | Un EXE, sin instalar Python, Qt ni códecs adicionales; funciona sin Internet |
-| Portable web Windows x64 | `Marco-Video-Web-Portable.exe` | Abre el navegador con un servidor solo local; sin instalación ni Internet |
-| Web normal / web en carpeta | `Marco-Video-Web.zip` | Descomprime y abre `index.html`, incluso sin Internet; también se puede alojar por HTTPS |
-| Instalador Windows x64 | `Marco-Video-Windows-Instalador.exe` | Instala para tu usuario, sin elevación administrativa |
-| Instalador Linux amd64 | `Marco-Video-Linux-amd64.deb` | Debian/Ubuntu compatibles; requiere permisos de instalación y bibliotecas del sistema |
-| Android | `Marco-Video-Android.apk` | APK firmado; instalación directa, requiere autorizar esa fuente |
+| **Linux** | [Marco-Video-Linux-amd64.deb](https://github.com/Peskysa/marco-video/releases/download/v1.1.0/Marco-Video-Linux-amd64.deb) | Instalador DEB para amd64; también portable TAR.GZ. |
+| **Windows** | [Marco-Video-Windows-Instalador.exe](https://github.com/Peskysa/marco-video/releases/download/v1.1.0/Marco-Video-Windows-Instalador.exe) | Instalador para el usuario actual, x64. |
+| **Portable** | [Marco-Video-Portable.exe](https://github.com/Peskysa/marco-video/releases/download/v1.1.0/Marco-Video-Portable.exe) | Un EXE Windows sin instalar; también web portable y Linux portable. |
+| **Web** | [Marco-Video-Web.zip](https://github.com/Peskysa/marco-video/releases/download/v1.1.0/Marco-Video-Web.zip) | ZIP autónomo para navegador o alojamiento HTTPS. |
+| **Android** | [Marco-Video-Android.apk](https://github.com/Peskysa/marco-video/releases/download/v1.1.0/Marco-Video-Android.apk) | APK de publicación firmado con clave propia del proyecto. |
 
-También se ofrece `Marco-Video-Linux-Portable.tar.gz` como alternativa en carpeta para Linux, y `Marco-Video-Documentacion.zip`. Las sumas están en `SHA256SUMS.txt`. Los portables siguen sujetos a las políticas de ejecución del ordenador y extraen componentes temporales; no evitan bloqueos de una organización.
+Todas las variantes incluyen la aplicación y sus recursos. No necesitas instalar Python ni Node.js para utilizar los paquetes compilados. Los portables no requieren instalación, pero siguen sujetos a los permisos de ejecución del equipo. Los ejecutables Windows no tienen firma comercial. El APK se instala directamente, fuera de Google Play; su compilación no equivale a una prueba en teléfono físico.
+
+Acceso: **Repositorio privado; web pública**. La visibilidad del repositorio y la del alojamiento web son ajustes independientes. La publicación concreta y sus archivos se comprueban en [Releases](https://github.com/Peskysa/marco-video/releases/latest).
+
+Además: `Marco-Video-Web-Portable.exe`, `Marco-Video-Linux-Portable.tar.gz`, documentación, código fuente y `SHA256SUMS.txt`. [Formatos, requisitos y verificación](docs/DISTRIBUCION.md).
 
 ## Funciones
 
-- Abrir varios vídeos o audios, añadir una carpeta, arrastrar archivos y reproducir URL HTTP/HTTPS directas.
-- Listas M3U/M3U8, filtro, orden manual, eliminar entradas, siguiente/anterior, aleatorio y repetición de un archivo o toda la lista.
-- Pausa, saltos, búsqueda por posición, velocidad de 0,25× a 4×, volumen y silencio.
-- Subtítulos externos SRT/WebVTT, UTF-8, UTF-16 y Windows-1252; tamaño y retraso ajustables.
-- Reanudar la última posición, marcadores por archivo, capturas PNG del fotograma y temporizador que pausa la reproducción.
-- Pantalla completa y modo concentración; controles de teclado y diseño adaptable.
-- Escritorio: pistas de audio y subtítulos internos, elección de salida de audio, ventana siempre visible, metadatos y avance de fotograma aproximado.
-- Web/Android: giro, encajar/rellenar, brillo, contraste, saturación y ecualizador de tres bandas para archivos locales. Ventana flotante cuando el navegador la admite.
+Listas, subtítulos SRT/WebVTT, velocidad, marcadores, reanudación, capturas y controles de reproducción. Interfaz en español, inglés y francés. [Manual completo](docs/MANUAL.md).
 
-La lista se mantiene durante la sesión; guarda una M3U si quieres conservarla. En web/Android hay que volver a seleccionar los archivos locales al reabrirla, por las reglas de acceso del navegador. La reanudación y los marcadores se guardan localmente, sin sincronización.
+![Función principal real](docs/images/funcion.png)
 
-## Formatos y límites claros
+## Capturas
 
-El escritorio utiliza **Qt Multimedia / FFmpeg**; la compatibilidad depende del códec y la plataforma, no solo de la extensión `.mkv`, `.mp4` o `.avi`. Web y Android usan el motor multimedia del navegador/WebView y admiten menos combinaciones. No se promete reproducir todos los archivos ni 4K fluido en cualquier equipo. [Matriz de funciones y formatos](docs/COMPATIBILIDAD.md).
+<p align="center"><img src="docs/images/movil.png" alt="Vista móvil real en navegador con pantalla simulada" width="320"></p>
 
-No incluye descifrado DRM, DVD/Blu-ray, descargas de plataformas, grabación ni conversión de vídeo. Las URL son archivos multimedia accesibles directamente; no páginas de YouTube, listas IPTV/HLS ni servicios con inicio de sesión.
+Capturas auténticas de la aplicación con ejemplos propios. La vista móvil usa una pantalla simulada del navegador; no representa una prueba en Android físico. [Galería y reproducción](docs/CAPTURAS.md).
+
+## Instalación y uso
+
+Descarga el formato de tu sistema en [Releases](https://github.com/Peskysa/marco-video/releases/latest), comprueba su suma SHA-256 y sigue [Instalación](docs/INSTALACION.md). En la web, abre el enlace de la portada. Los archivos se procesan en el dispositivo; consulta [Privacidad](docs/PRIVACIDAD.md) para las conexiones y datos locales concretos.
 
 ## Documentación
 
-| Guía | Contenido |
-| --- | --- |
-| [Instalación](docs/INSTALACION.md) | Qué descargar, requisitos, permisos y uso sin Internet |
-| [Manual](docs/MANUAL.md) | Reproducción, subtítulos, listas, marcadores y controles |
-| [Compatibilidad](docs/COMPATIBILIDAD.md) | Diferencias entre escritorio, web y Android |
-| [Privacidad](docs/PRIVACIDAD.md) | Datos locales, URL, memoria de posiciones y borrado |
-| [Capturas](docs/CAPTURAS.md) | Imágenes auténticas y cómo reproducirlas |
-| [Desarrollo](docs/DESARROLLO.md) | Ejecutar, probar, reconstruir y publicar |
-| [Licencia](docs/LICENCIA.md) | Autoría GPL-3.0 y dependencias de terceros |
+- [Instalación](docs/INSTALACION.md) y [manual](docs/MANUAL.md).
+- [Distribución](docs/DISTRIBUCION.md), [capturas](docs/CAPTURAS.md) y [desarrollo](docs/DESARROLLO.md).
+- [Privacidad](docs/PRIVACIDAD.md), [licencia](docs/LICENCIA.md) y [terceros](THIRD_PARTY.md).
+- [Historial](CHANGELOG.md), [contribuir](CONTRIBUTING.md) y [seguridad](SECURITY.md).
 
-## Ejecutar desde el código
+## Desarrollo y comprobaciones
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe player.py
-```
+Consulta [Desarrollo](docs/DESARROLLO.md) para las herramientas y pruebas funcionales. El contrato común se comprueba con `python scripts/distribution.py check`. Las publicaciones automáticas generan los nueve paquetes comunes y sus sumas; la publicación falla si falta alguno.
 
-La web se prepara con Node.js 24, pnpm 11.25.0 y `python scripts/build.py`, después de instalar las dependencias de `web/`. Consulta la [guía completa](docs/DESARROLLO.md).
+## Alcance y límites
 
-## Licencia
+Los formatos reproducibles dependen de los códecs de cada plataforma. Web y Android tienen menos formatos que escritorio. Sin DRM, conversión ni descarga de plataformas. Las distintas tecnologías mantienen sus diferencias documentadas; compartir formatos de distribución no garantiza idénticos códecs o prestaciones del sistema.
 
-Copyright © 2026 Marco Pescador. Código, gráficos originales y demo bajo **GPL-3.0-only**, sin garantía. [Texto completo](LICENSE), [avisos](NOTICE) y [terceros](THIRD_PARTY.md). Qt/PySide, FFmpeg y Capacitor conservan sus licencias. El repositorio comienza privado; para acceder a su código y descargas debes tener acceso a GitHub. La configuración de acceso del alojamiento web es independiente.
+## Licencia y autoría
+
+Copyright © 2026 **Marco Pescador**. Código e identidad visual originales bajo [GNU AGPL versión 3 exclusivamente](LICENSE), `AGPL-3.0-only`, sin garantía. Los componentes de terceros conservan sus licencias. Las ediciones anteriores conservan las condiciones con que se publicaron. [Detalles y código fuente](docs/LICENCIA.md).

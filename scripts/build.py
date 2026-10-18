@@ -13,6 +13,8 @@ for name in ['LICENSE','NOTICE','THIRD_PARTY.md']:
     if (ROOT/name).exists(): shutil.copy2(ROOT/name,dist/name)
 if (ROOT/'docs/MANUAL.md').exists(): shutil.copy2(ROOT/'docs/MANUAL.md',dist/'MANUAL.md')
 if (ROOT/'licenses').exists(): shutil.copytree(ROOT/'licenses',dist/'licenses',dirs_exist_ok=True)
+subprocess.run(['git','archive','--format=zip','--prefix=marco-video/','--output='+str(dist/'Source.zip'),'HEAD'],cwd=ROOT,check=True)
+
 target=ROOT/'dist/Marco-Video-Web.zip'
 with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED) as z:
     for p in sorted(dist.rglob('*')):

@@ -1,11 +1,11 @@
 # Licencia y autoría
 
-**Marco Vídeo — Copyright © 2026 Marco Pescador.** Código, gráficos originales y demo bajo **GNU GPL versión 3 exclusivamente** (`GPL-3.0-only`), sin garantía. El texto completo está en [LICENSE](../LICENSE), y los avisos en [NOTICE](../NOTICE).
+Copyright © 2026 Marco Pescador. El código y los recursos originales de Marco Vídeo desde la versión 1.1.0 se publican bajo **GNU AGPL versión 3 exclusivamente** (`AGPL-3.0-only`). El texto normativo está en [LICENSE](../LICENSE), sin garantía. Los componentes externos conservan sus licencias y avisos en [THIRD_PARTY.md](../THIRD_PARTY.md) y `licenses/`.
 
-Las bibliotecas no pasan a ser propiedad del autor ni cambian de licencia. [THIRD_PARTY.md](../THIRD_PARTY.md) enlaza sus fuentes y licencias, y `licenses/` conserva los textos distribuidos. Qt/PySide se utiliza bajo su alternativa de código abierto; no se incorpora una licencia comercial.
+Puedes usar, estudiar, modificar y redistribuir el programa conforme a esa licencia. Debes conservar los avisos y proporcionar el código fuente correspondiente cuando proceda. Las versiones modificadas utilizadas a través de una red están sujetas también a la sección 13. [Texto oficial](https://www.gnu.org/licenses/agpl-3.0.html).
 
-Se entrega el código del proyecto y las instrucciones de compilación para estudiar, modificar y reconstruirlo. Las bibliotecas del escritorio se enlazan dinámicamente y se pueden sustituir por versiones compatibles en la distribución en carpeta. El EXE de un solo archivo se puede reconstruir con el mismo procedimiento y las bibliotecas modificadas. No se prohíbe la ingeniería inversa permitida por las licencias de esas bibliotecas.
+La versión 1.0.0 se publicó bajo GPL-3.0-only; su texto se conserva en `licenses/marco-video-v1.0-GPL.txt`. Qt/PySide y FFmpeg conservan sus opciones de código abierto y sus bibliotecas dinámicas sustituibles; consulta THIRD_PARTY.md y Desarrollo.
 
-La configuración privada de GitHub exige acceso al repositorio para obtener su código o descargas. Los destinatarios deben disponer del código correspondiente conforme a las licencias aplicables. Las claves de firma y contraseñas se excluyen del código distribuible.
+Cada nueva publicación adjunta `Marco-Video-Source.zip` con el código del mismo commit que los binarios, además de instrucciones y versiones de dependencias. La fuente está también en [marco-video](https://github.com/Peskysa/marco-video). El acceso privado del repositorio no elimina las obligaciones de proporcionar fuentes a sus destinatarios. Las claves de firma y contraseñas no forman parte del código distribuible.
 
-Esta página describe la licencia elegida para el proyecto; no sustituye los textos completos de las licencias.
+La licencia del código original es común a la colección; no se cambia la licencia de bibliotecas ajenas ni se revocan permisos de ediciones anteriores.

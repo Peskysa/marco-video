@@ -6,7 +6,7 @@ cp -a 'dist/Marco Video/.' "$root/opt/marco-video/"
 cp web/icon.svg "$root/usr/share/icons/hicolor/scalable/apps/marco-video.svg"
 cat > "$root/DEBIAN/control" <<'EOF'
 Package: marco-video
-Version: 1.0.0
+Version: 1.1.0
 Section: video
 Priority: optional
 Architecture: amd64

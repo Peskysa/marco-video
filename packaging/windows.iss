@@ -1,7 +1,7 @@
 [Setup]
 AppId={{32CDB05E-87D3-44D4-B01C-6175A7878A1F}
 AppName=Marco Vídeo
-AppVersion=1.0.0
+AppVersion=1.1.0
 AppPublisher=Marco Pescador
 AppPublisherURL=https://github.com/Peskysa/marco-video
 DefaultDirName={localappdata}\Programs\Marco Video

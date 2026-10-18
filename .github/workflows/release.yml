@@ -1,15 +1,17 @@
-name: Compilar Marco Vídeo
+name: Compilar y publicar colección
 on:
-  workflow_dispatch:
   push:
     tags: ['v*']
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   web:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verificar estándar de colección
+        run: python scripts/distribution.py check
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -22,7 +24,7 @@ jobs:
       - run: pnpm test
         working-directory: web
       - run: python scripts/build.py
-      - name: Reproducción y controles sin peticiones externas
+      - name: ReproducciÃ³n y controles sin peticiones externas
         env:
           BROWSER_CHANNEL: chromium
         run: |
@@ -69,12 +71,12 @@ jobs:
         shell: pwsh
         run: |
           $p = Start-Process -FilePath (Resolve-Path 'dist/Marco-Video-Portable.exe') -ArgumentList '--self-test',(Join-Path $PWD 'test-output/frozen-report.json') -WindowStyle Hidden -Wait -PassThru
-          if ($p.ExitCode -ne 0) { Get-Content test-output/frozen-report.json; throw 'Falló la reproducción en el portable compilado' }
+          if ($p.ExitCode -ne 0) { Get-Content test-output/frozen-report.json; throw 'FallÃ³ la reproducciÃ³n en el portable compilado' }
           Get-Content test-output/frozen-report.json
           python packaging/check_web.py dist/Marco-Video-Web-Portable.exe
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' packaging/windows.iss
-          if ($LASTEXITCODE -ne 0) { throw 'Falló el instalador' }
-      - name: Linux reproducción real y paquetes
+          if ($LASTEXITCODE -ne 0) { throw 'FallÃ³ el instalador' }
+      - name: Linux reproducciÃ³n real y paquetes
         if: runner.os == 'Linux'
         env:
           QT_MEDIA_BACKEND: ffmpeg
@@ -124,7 +126,7 @@ jobs:
           packages: platform-tools
           log-accepted-android-sdk-licenses: false
       - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
-      - name: APK de publicación con clave propia
+      - name: APK de publicaciÃ³n con clave propia
         env:
           ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
@@ -144,28 +146,26 @@ jobs:
   publish:
     needs: [web, desktop, android]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
           pattern: final-*
           path: artifacts
           merge-multiple: true
-      - name: Documentación, fuente correspondiente y sumas
-        run: |
-          python packaging/docs.py
-          cp dist/Marco-Video-Documentacion.zip artifacts/
-          git archive --format=zip --prefix=Marco-Video-Source/ --output=artifacts/Marco-Video-Source.zip HEAD
-          for file in Marco-Video-Portable.exe Marco-Video-Web-Portable.exe Marco-Video-Web.zip Marco-Video-Windows-Instalador.exe Marco-Video-Linux-amd64.deb Marco-Video-Android.apk; do test -s "artifacts/$file"; done
-          (cd artifacts && sha256sum *) > SHA256SUMS.txt
-          mv SHA256SUMS.txt artifacts/
-      - name: Publicar Marco Vídeo 1.0
+      - name: Verificar nueve paquetes, documentación, fuente y sumas
+        run: python scripts/distribution.py finalize artifacts
+      - name: Publicar solo después de todas las comprobaciones
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+        shell: bash
         run: |
-          tag="${GITHUB_REF_NAME}"
-          if [ "${GITHUB_REF_TYPE}" != 'tag' ]; then tag='v1.0.0'; fi
-          gh release create "$tag" artifacts/* --target "$GITHUB_SHA" --title 'Marco Vídeo 1.0 · ES / EN / FR' --notes-file docs/releases/v1.0.0.md
+          version="$(python -c 'import json; print(json.load(open("project.json"))["version"])')"
+          name="$(python -c 'import json; print(json.load(open("project.json"))["name"])')"
+          tag="v$version"
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "$tag" ]; then echo 'Etiqueta y versión no coinciden'; exit 1; fi
+          gh release create "$tag" artifacts/* --draft --target "$GITHUB_SHA" --title "$name $version" --notes-file "docs/releases/$tag.md"
+          gh release edit "$tag" --draft=false --latest

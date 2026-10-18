@@ -1,0 +1,16 @@
+{
+  "slug": "marco-video",
+  "name": "Marco Vídeo",
+  "prefix": "Marco-Video",
+  "version": "1.1.0",
+  "web": "https://marco-video.peskysa.chatgpt.site",
+  "license": "AGPL-3.0-only",
+  "modalities": [
+    "linux",
+    "windows",
+    "portable",
+    "web",
+    "android"
+  ],
+  "package": "web/package.json"
+}

@@ -1,4 +1,4 @@
-/* Marco Vídeo — Copyright 2026 Marco Pescador, GPL-3.0-only. */
+/* Marco Vídeo — Copyright 2026 Marco Pescador, AGPL-3.0-only. */
 'use strict';
 const $=id=>document.getElementById(id), V=$('video'), C=VideoCore;
 const storage={get(key,fallback){try{return JSON.parse(localStorage.getItem('marco-video:'+key))??fallback;}catch{return fallback;}},set(key,value){try{localStorage.setItem('marco-video:'+key,JSON.stringify(value));}catch{/* Private/managed browsers may disable persistence. */}}};

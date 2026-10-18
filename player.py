@@ -356,7 +356,7 @@ class Player(QMainWindow):
     def closeEvent(self,event): self.save_position(); self.settings.setValue('volume',self.audio.volume()); self.media.stop(); event.accept()
 
 def main():
-    app=QApplication(sys.argv); app.setApplicationName('Marco Vídeo'); app.setApplicationVersion('1.0.0'); app.setStyleSheet(STYLE)
+    app=QApplication(sys.argv); app.setApplicationName('Marco Vídeo'); app.setApplicationVersion('1.1.0'); app.setStyleSheet(STYLE)
     player=Player(isolated='--smoke-test' in sys.argv or '--self-test' in sys.argv)
     if '--self-test' in sys.argv:
         from native_check import run

@@ -28,3 +28,11 @@ La ventana nativa se captura desde el escritorio del sistema tras decodificar el
 Con dependencias instaladas y la web preparada, sirve `dist/web` en `127.0.0.1:5180`. Desde `web/`, ejecuta `node tests/browser.cjs`; `BROWSER_CHANNEL=chromium` permite usar Chromium instalado por Playwright, y el valor predeterminado local es `msedge`. La prueba bloquea todas las peticiones externas, comprueba reproducción/controles y guarda las cuatro capturas web.
 
 Desde la raíz ejecuta `python player.py --self-test test-output/native-report.json`. Guarda el informe, un fotograma y `test-output/escritorio.png`; copia esta última imagen a `docs/images/escritorio.png` tras revisarla. Para regenerar la demo original usa `node tests/make-demo.cjs` desde `web/`.
+
+## Galería común
+
+![Escritorio](images/escritorio.png)
+
+![Función principal](images/funcion.png)
+
+![Vista móvil](images/movil.png)

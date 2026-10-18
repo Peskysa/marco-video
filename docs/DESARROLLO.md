@@ -51,7 +51,7 @@ Genera la aplicación en carpeta `dist/Marco Video/`; en Windows también los do
 
 En Windows compila `packaging/windows.iss` con Inno Setup 6. En Linux ejecuta `bash packaging/linux.sh` para DEB y portable en carpeta. Los paquetes se compilan en sus propios sistemas; no se promete compilación cruzada.
 
-`python packaging/docs.py` genera la documentación. La publicación de GitHub ejecuta pruebas, construye los seis formatos principales y la alternativa portable Linux, adjunta el ZIP de documentación, el fuente correspondiente del proyecto y sus sumas SHA-256. Se activa al enviar una etiqueta `v*` o manualmente. La versión 1.0.0 se mantiene coherente en Android, Inno, DEB y aplicación antes de crear otra etiqueta.
+`python packaging/docs.py` genera la documentación. La publicación de GitHub ejecuta pruebas, construye los seis formatos principales y la alternativa portable Linux, adjunta el ZIP de documentación, el fuente correspondiente del proyecto y sus sumas SHA-256. Se activa al enviar una etiqueta `v*` o manualmente. La versión 1.1.0 se mantiene coherente en Android, Inno, DEB y aplicación antes de crear otra etiqueta.
 
 ## Reemplazar o modificar dependencias
 

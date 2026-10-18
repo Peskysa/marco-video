@@ -1,4 +1,4 @@
-/* Shared deterministic helpers; GPL-3.0-only, Marco Pescador. */
+/* Shared deterministic helpers; AGPL-3.0-only, Marco Pescador. */
 (function(root) {
   const stamp = value => value.trim().replace(',', '.').split(':').reverse().reduce((sum,part,i) => sum + Number(part) * 60 ** i, 0);
   function parseSubtitles(text) {

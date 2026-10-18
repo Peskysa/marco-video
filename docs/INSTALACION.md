@@ -1,50 +1,27 @@
-# Instalar o usar sin instalar
+# Instalación y requisitos
 
-[Portada](../README.md) · [Manual](MANUAL.md)
+[Portada](../README.md) · [Distribución y nombres de archivo](DISTRIBUCION.md)
+
+Descarga los paquetes de la versión **1.1.0** en [Releases](https://github.com/Peskysa/marco-video/releases/latest). No se necesita Python, Node.js ni herramientas de desarrollo para utilizarlos. Comprueba el archivo con `Get-FileHash archivo -Algorithm SHA256` en Windows o `sha256sum archivo` en Linux, comparándolo con `SHA256SUMS.txt`.
 
 ## Windows
 
-Descarga los archivos desde [Releases](https://github.com/Peskysa/marco-video/releases/latest), no el ZIP de código fuente.
-
-- **Portable:** abre `Marco-Video-Portable.exe`. Incorpora Python, Qt y el motor multimedia; no requiere VLC, códecs ni Python instalados. Descomprime componentes automáticamente en la carpeta temporal del usuario. Guarda preferencias en el perfil del usuario.
-- **Portable web:** abre `Marco-Video-Web-Portable.exe`. Se abre tu navegador habitual con una dirección `http://127.0.0.1:PUERTO/`. Conserva la pequeña ventana del lanzador abierta. Todo está incluido; los vídeos locales no pasan por el servidor.
-- **Instalador:** abre `Marco-Video-Windows-Instalador.exe`. Instala en `%LOCALAPPDATA%\Programs\Marco Video` y crea accesos directos para tu usuario. Se desinstala desde Aplicaciones de Windows.
-
-Windows 10/11 x64. No se requiere administrador para las tres variantes; una política de empresa puede prohibir ejecutar EXE, usar carpetas temporales o abrir un servidor local. Los EXE no están firmados con un certificado comercial de Windows; el sistema puede mostrar su aviso de editor desconocido. No desactives las políticas de un equipo ajeno.
-
-## Web normal y web sin Internet
-
-La [web alojada](https://marco-video.peskysa.chatgpt.site) tiene acceso privado para la cuenta del propietario y necesita Internet para cargar la aplicación.
-
-Descomprime `Marco-Video-Web.zip` y abre **`index.html`** en un navegador actual. Conserva los demás archivos junto a él. Funciona por `file://` sin instalar un servidor; se ha probado con Microsoft Edge. Otras políticas/navegadores pueden limitar las descargas, pantalla completa o ventana flotante.
-
-En otro ordenador, copia la carpeta completa en un USB. No basta con guardar un enlace a una web de Internet: una dirección alojada requiere conexión para cargar la aplicación. No se promete caché automática ni instalación PWA.
-
-Para alojarla, sirve el contenido del ZIP mediante HTTPS. No necesita backend, cuentas ni base de datos. Las URL de vídeo remotas requieren conexión y pueden estar bloqueadas por HTTPS/CORS, autenticación o política del servidor.
+Windows x64. Ejecuta `Marco-Video-Windows-Instalador.exe` para instalar para tu usuario, o `Marco-Video-Portable.exe` para abrir sin instalación. `Marco-Video-Web-Portable.exe` abre la web incluida en tu navegador mediante un servidor solo local en 127.0.0.1; mantén su ventana abierta y ciérrala al terminar. Los EXE no tienen firma comercial. Los portables extraen componentes temporales y siguen sujetos a las políticas del equipo.
 
 ## Linux
 
-El DEB está dirigido a **Ubuntu 22.04/24.04 x64 y sistemas compatibles con glibc ≥ 2.35**; Qt requiere además las bibliotecas gráficas y de sonido indicadas en el paquete.
+Ubuntu 22.04 o distribución compatible, amd64 y entorno gráfico. Instala `Marco-Video-Linux-amd64.deb` con el gestor de paquetes para resolver dependencias. Para usar sin instalar, extrae `Marco-Video-Linux-Portable.tar.gz` y ejecuta el programa de su carpeta; las bibliotecas del sistema siguen siendo necesarias.
 
-```sh
-sudo apt install ./Marco-Video-Linux-amd64.deb
-marco-video
-```
+## Web
 
-El instalador sí requiere permisos de administrador y puede necesitar Internet para resolver dependencias del sistema. La alternativa `Marco-Video-Linux-Portable.tar.gz` permite extraer y ejecutar `Marco Video/Marco Video` sin instalar el paquete, siempre que las bibliotecas del sistema estén presentes. No es compatible con todas las distribuciones ni con Linux ARM.
+Abre [la aplicación alojada](https://marco-video.peskysa.chatgpt.site) o sirve `Marco-Video-Web.zip` desde HTTP(S). Usa un navegador moderno. Los recursos se incluyen en el ZIP; no se necesita instalar herramientas de desarrollo. El acceso al sitio alojado es independiente de la visibilidad del repositorio.
 
 ## Android
 
-Instala `Marco-Video-Android.apk`, firmado con la clave propia del proyecto. Autoriza la instalación desde la aplicación que abre el APK. Android 7 o posterior, sujeto a los requisitos de WebView y Capacitor de esa versión. Selecciona vídeos con el selector de archivos del sistema; no solicita acceso general a todos tus archivos. La selección de carpetas depende del selector de Android.
+Instala `Marco-Video-Android.apk` tras autorizar esa fuente en Android. Usa una clave de publicación propia y estable del proyecto. No se publica en Google Play y no se ha probado en teléfono físico. Si usabas el antiguo APK debug de ajedrez, desinstálalo una vez antes de instalar el nuevo; las siguientes actualizaciones conservarán la clave de publicación.
 
-Las capturas y listas se comparten mediante el diálogo del sistema. Mantén la aplicación en primer plano para usar el temporizador; Android puede suspenderla en segundo plano. La reproducción en segundo plano y PiP nativo Android no se anuncian como funciones garantizadas.
+## Requisitos concretos de este programa
 
-## Comprobar la descarga
+Android 7 o posterior (API 24), WebView actualizado. Linux requiere glibc 2.35, OpenGL/EGL, X11/XCB, xkbcommon, PulseAudio/ALSA y NSS, según el DEB. Extrae el TAR.GZ y ejecuta `./Marco\ Video`. El ZIP web admite abrir index.html directamente; los formatos dependen del navegador.
 
-`SHA256SUMS.txt` contiene el SHA-256 de cada archivo publicado. En PowerShell:
-
-```powershell
-Get-FileHash .\Marco-Video-Portable.exe -Algorithm SHA256
-```
-
-Compara el resultado completo. Estas sumas comprueban integridad; no sustituyen una firma comercial del editor.
+Consulta [Manual](MANUAL.md) para las diferencias funcionales y [Privacidad](PRIVACIDAD.md) para los archivos locales y conexiones.

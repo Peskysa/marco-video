@@ -1,14 +1,10 @@
 Marco Vídeo
 Copyright (C) 2026 Marco Pescador
 
-El código, la identidad visual y el clip de demostración originales de este
-proyecto se distribuyen bajo GNU GPL versión 3 exclusivamente (GPL-3.0-only).
-No se ofrece garantía. Véase LICENSE.
+SPDX-License-Identifier: AGPL-3.0-only
 
-Las dependencias conservan sus autores y sus propias licencias. El escritorio
-utiliza PySide6 / Qt y el backend multimedia FFmpeg. Android utiliza Capacitor.
-No se ha adquirido ni se incorpora una licencia comercial de Qt.
-Véanse THIRD_PARTY.md y licenses/ para los avisos, licencias y fuentes.
-
-La demo es una animación procedural original con un tono de audio sintético;
-no contiene películas, grabaciones personales ni contenido de terceros.
+Código, gráficos y ejemplos originales bajo GNU Affero General Public License,
+versión 3 exclusivamente, sin garantía. Véase LICENSE.
+Fuente: https://github.com/Peskysa/marco-video
+Los componentes de terceros conservan sus autores y licencias.
+Véanse THIRD_PARTY.md y licenses/.
